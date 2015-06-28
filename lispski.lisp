@@ -47,3 +47,9 @@
 (defun ski-eval (terms)
   "Evaluate the SKI terms in terms"
   (fix #'ski-step terms))
+
+(defun sanitize (str)
+  (let ((terms "SKI()"))
+    (remove-if-not
+     (lambda (x) (some (lambda (y) (eq x y)) terms))
+     (string-upcase str))))
