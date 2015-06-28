@@ -82,3 +82,6 @@ The result is a cons of the resulting tree and the unparsed terms"
 (defun ski-parser (str)
   (descent-map (lambda (x) (intern (string x)))
                (ski-treeify (coerce (sanitize str) 'list) ())))
+
+(defun ski-repl ()
+  (loop (format t "~A~%" (ski-eval (car (ski-parser (progn (format t "> ") (read-line))))))))
