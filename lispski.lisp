@@ -84,4 +84,7 @@ The result is a cons of the resulting tree and the unparsed terms"
                (ski-treeify (coerce (sanitize str) 'list) ())))
 
 (defun ski-repl ()
-  (loop (format t "~A~%" (ski-eval (car (ski-parser (progn (format t "> ") (read-line))))))))
+  (loop (format t "~A~%" (ski-eval (car (ski-parser
+                                         (progn (format t "> ")
+                                                (finish-output)
+                                                (read-line))))))))
