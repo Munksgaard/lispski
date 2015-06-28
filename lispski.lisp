@@ -69,3 +69,16 @@ The result is a cons of the resulting tree and the unparsed terms"
          (cons acc (cdr xs)))
         (t
          (ski-treeify (cdr xs) (cons acc (car xs))))))
+
+(defun descent-map (f xs)
+  (cond
+    ((null xs)
+     ())
+    ((atom xs)
+     (funcall f xs))
+    (t
+     (cons (descent-map f (car xs)) (descent-map f (cdr xs))))))
+
+(defun ski-parser (str)
+  (descent-map (lambda (x) (intern (string x)))
+               (ski-treeify (coerce (sanitize str) 'list) ())))
