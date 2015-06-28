@@ -49,9 +49,7 @@
 
 (defun sanitize (str)
   (let ((terms "SKI()"))
-    (remove-if-not
-     (lambda (x) (some (lambda (y) (eq x y)) terms))
-     (string-upcase str))))
+    (string-upcase str)))
 
 (defun ski-treeify (xs acc)
   "Parse a list of characters (terms) into a tree
