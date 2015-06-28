@@ -53,3 +53,19 @@
     (remove-if-not
      (lambda (x) (some (lambda (y) (eq x y)) terms))
      (string-upcase str))))
+
+(defun ski-treeify (xs acc)
+  "Parse a list of characters (terms) into a tree
+The result is a cons of the resulting tree and the unparsed terms"
+  (cond ((null acc)
+         (ski-treeify (cdr xs) (car xs)))
+        ((null xs)
+         (cons acc ()))
+        ((eq (car xs) #\()
+         (let ((res (ski-treeify (cdr xs) ())))
+           (ski-treeify (cdr res)
+                       (cons acc (car res)))))
+        ((eq (car xs) #\))
+         (cons acc (cdr xs)))
+        (t
+         (ski-treeify (cdr xs) (cons acc (car xs))))))
