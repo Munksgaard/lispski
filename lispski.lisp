@@ -27,15 +27,14 @@
    (cons 'i i)))
 
 (defun ski-step (xs)
-  (cond ((atom xs)
-         xs)
-        (t
-         (let* ((x (ski-eval (car xs)))
-                (f (or (and (functionp x) x) (cdr (assoc x scope))))
-                (y (ski-eval (cdr xs))))
-           (if (null f)
-               (cons x y)
-               (funcall f y))))))
+  (if (atom xs)
+      xs
+      (let* ((x (ski-eval (car xs)))
+             (f (or (and (functionp x) x) (cdr (assoc x scope))))
+             (y (ski-eval (cdr xs))))
+        (if (null f)
+            (cons x y)
+            (funcall f y)))))
 
 (defun fix (f xs)
   "Computer the fix-point of f with xs"
